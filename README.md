@@ -29,30 +29,39 @@ It is built for national HIV program + digital-health teams and the **L2/L3 work
 
 ## Useful links & references
 
-Official WHO guidance and the tooling the working group will reach for next.
+**Start with these four:**
 
-**WHO SMART Guidelines — method & program**
-- [WHO SMART Guidelines](https://www.who.int/teams/digital-health-and-innovation/smart-guidelines) — program overview and the L1–L5 knowledge ladder.
-- [SMART Guidelines portal](https://smart.who.int/) — index of all published WHO DAKs and L3 implementation guides.
-- [IG Starter Kit](https://smart.who.int/ig-starter-kit/) — the standard operating procedure for authoring DAKs and IGs (this guidance follows it).
-  - [L2 authoring overview](https://smart.who.int/ig-starter-kit/l2_authoring_overview.html) — the nine DAK components and how they interlink.
-  - [Authoring a L2 DAK](https://smart.who.int/ig-starter-kit/l2_dak_authoring.html) — step-by-step process.
-  - [L2 DAK templates](https://smart.who.int/ig-starter-kit/l2_templates.html) — the Excel templates for each component.
-  - [Authoring conventions](https://smart.who.int/ig-starter-kit/authoring_conventions.html) — naming and data-element ID rules.
-  - [L3 authoring overview](https://smart.who.int/ig-starter-kit/authoring_overview.html) — turning the L2 DAK into a FHIR IG.
-- [Community of Practice](https://smart.who.int/ig-starter-kit/cop.html) — weekly calls and the `who-smart-guidelines` stream on chat.fhir.org.
+| Link | What it is |
+|------|------------|
+| **[IG Starter Kit](https://smart.who.int/ig-starter-kit/)** | The WHO method for authoring DAK artifacts — this guidance follows it. |
+| **[WHO HIV DAK](https://www.who.int/publications/i/item/9789240054424)** | The L2 publication and web annexes — the source you adapt. |
+| **[HIV L3 IG (rendered)](https://smart.who.int/hiv)** | Browse the WHO decision-support logic and indicators online. |
+| **[Community of Practice](https://smart.who.int/ig-starter-kit/cop.html)** | Weekly calls and the `who-smart-guidelines` stream on chat.fhir.org. |
 
-**WHO HIV — source guidance & artifacts**
-- [HIV Digital Adaptation Kit](https://www.who.int/publications/i/item/9789240054424) — the L2 publication and its web annexes (data dictionary, decision logic, indicators).
-- [Person-centred HIV strategic information](https://www.who.int/publications/i/item/9789240055315) — consolidated guidance behind the indicators and reporting.
-- [HIV SMART Guidelines IG (L3)](https://smart.who.int/hiv) — the published FHIR implementation guide. ([decision-support logic](https://smart.who.int/hiv/decision-logic.html) · [indicators](https://smart.who.int/hiv/indicators.html))
-- [smart-hiv (GitHub)](https://github.com/WorldHealthOrganization/smart-hiv) — source repository for the HIV IG.
+<details>
+<summary><b>More references</b> — Starter Kit pages, other WHO guidance, and L2→L3/L4 tooling</summary>
 
-**Tooling & specs for L2 → L3 (and L4)**
-- [FHIR Shorthand (FSH)](https://www.hl7.org/fhir/uv/shorthand/) — the language for authoring FHIR profiles and artifacts.
-- [FSH School](https://fshschool.org/) — SUSHI compiler and the IG Publisher, with tutorials.
-- [Clinical Quality Language (CQL)](https://cql.hl7.org/) — the logic language for decision support and measures.
-- [FHIR Clinical Reasoning](https://www.hl7.org/fhir/clinicalreasoning-module.html) — PlanDefinition, Library and Measure — how L2 logic is encoded at L3.
-- [Open Health Stack](https://developers.google.com/open-health-stack) — Android FHIR SDK for building L4 point-of-care apps. ([GitHub](https://github.com/google/android-fhir))
+**Starter Kit pages**
+- [L2 authoring overview](https://smart.who.int/ig-starter-kit/l2_authoring_overview.html)
+- [Authoring a L2 DAK](https://smart.who.int/ig-starter-kit/l2_dak_authoring.html)
+- [L2 DAK templates](https://smart.who.int/ig-starter-kit/l2_templates.html)
+- [Authoring conventions](https://smart.who.int/ig-starter-kit/authoring_conventions.html)
+- [L3 authoring overview](https://smart.who.int/ig-starter-kit/authoring_overview.html)
+
+**More from WHO**
+- [SMART Guidelines (program)](https://www.who.int/teams/digital-health-and-innovation/smart-guidelines)
+- [SMART portal — all IGs](https://smart.who.int/)
+- [HIV decision logic (rendered)](https://smart.who.int/hiv/decision-logic.html) · [HIV indicators (rendered)](https://smart.who.int/hiv/indicators.html)
+- [Person-centred HIV strategic information](https://www.who.int/publications/i/item/9789240055315)
+- [smart-hiv (GitHub)](https://github.com/WorldHealthOrganization/smart-hiv)
+
+**Tooling — L2 → L3 / L4**
+- [FHIR Shorthand (FSH)](https://www.hl7.org/fhir/uv/shorthand/)
+- [FSH School (SUSHI + IG Publisher)](https://fshschool.org/)
+- [Clinical Quality Language (CQL)](https://cql.hl7.org/)
+- [FHIR Clinical Reasoning](https://www.hl7.org/fhir/clinicalreasoning-module.html)
+- [Open Health Stack](https://developers.google.com/open-health-stack) · [Android FHIR SDK](https://github.com/google/android-fhir)
+
+</details>
 
 Diagrams live in [`_assets/`](_assets). Method grounded in the WHO SMART Guidelines IG Starter Kit (v2.0.0) and the WHO HIV DAK, 2nd edition.
