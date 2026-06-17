@@ -1,0 +1,60 @@
+<svg viewBox="0 0 760 630" width="760" height="630" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="f" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#1F497D"/>
+    </marker>
+  </defs>
+
+  <!-- spine arrows -->
+  <g fill="none" stroke="#1F497D" stroke-width="2" marker-end="url(#f)">
+    <path d="M300,66 L300,88"/>
+    <path d="M300,180 L300,208"/>
+    <path d="M300,256 L300,276"/>
+    <path d="M300,362 L300,390"/>
+    <path d="M300,438 L300,456"/>
+    <path d="M300,542 L300,560"/>
+    <path d="M205,135 L172,135"/>
+    <path d="M210,320 L202,320"/>
+    <path d="M390,500 L468,500"/>
+  </g>
+
+  <!-- P1 -->
+  <rect x="210" y="20" width="180" height="46" rx="8" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="300" y="48" font-size="14" fill="#1F497D" text-anchor="middle">Test on Assay 1 (A1)</text>
+  <!-- D1 -->
+  <polygon points="300,90 395,135 300,180 205,135" fill="#fff" stroke="#1F497D" stroke-width="1.5"/>
+  <text x="300" y="140" font-size="13" fill="#1F497D" text-anchor="middle">A1 reactive?</text>
+  <text x="97" y="104" font-size="11" fill="#51616f" text-anchor="middle">non-reactive</text>
+  <text x="322" y="200" font-size="11" fill="#51616f" text-anchor="middle">reactive</text>
+  <!-- T-neg -->
+  <rect x="22" y="112" width="150" height="46" rx="8" fill="#0b6e4f"/>
+  <text x="97" y="140" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">HIV-negative</text>
+
+  <!-- P2 -->
+  <rect x="210" y="208" width="180" height="46" rx="8" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="300" y="236" font-size="14" fill="#1F497D" text-anchor="middle">Test on Assay 2 (A2)</text>
+  <!-- D2 -->
+  <polygon points="300,278 390,320 300,362 210,320" fill="#fff" stroke="#1F497D" stroke-width="1.5"/>
+  <text x="300" y="325" font-size="13" fill="#1F497D" text-anchor="middle">A2 reactive?</text>
+  <text x="108" y="290" font-size="11" fill="#51616f" text-anchor="middle">non-reactive</text>
+  <text x="322" y="382" font-size="11" fill="#51616f" text-anchor="middle">reactive</text>
+  <!-- Discrepant -->
+  <rect x="15" y="297" width="187" height="46" rx="8" fill="#fff" stroke="#d9a441" stroke-width="1.5"/>
+  <text x="108" y="325" font-size="13" fill="#9a6a00" text-anchor="middle">Discrepant → repeat A1</text>
+
+  <!-- P3 -->
+  <rect x="210" y="390" width="180" height="46" rx="8" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="300" y="418" font-size="14" fill="#1F497D" text-anchor="middle">Test on Assay 3 (A3)</text>
+  <!-- D3 -->
+  <polygon points="300,458 390,500 300,542 210,500" fill="#fff" stroke="#1F497D" stroke-width="1.5"/>
+  <text x="300" y="505" font-size="13" fill="#1F497D" text-anchor="middle">A3 reactive?</text>
+  <text x="322" y="558" font-size="11" fill="#51616f" text-anchor="middle">reactive</text>
+  <text x="430" y="490" font-size="11" fill="#51616f" text-anchor="middle">non-reactive</text>
+  <!-- T-pos -->
+  <rect x="160" y="560" width="280" height="48" rx="8" fill="#1F497D"/>
+  <text x="300" y="589" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">HIV-positive → verify, link to ART</text>
+  <!-- T-inconclusive -->
+  <rect x="470" y="476" width="250" height="48" rx="8" fill="#fff" stroke="#d9a441" stroke-width="1.5"/>
+  <text x="595" y="496" font-size="13" fill="#9a6a00" text-anchor="middle">Inconclusive →</text>
+  <text x="595" y="514" font-size="13" fill="#9a6a00" text-anchor="middle">retest in 14 days</text>
+</svg>

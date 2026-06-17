@@ -1,0 +1,406 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Tutorial — Adapting WHO HIV DAK L2 Artifacts to Ethiopia</title>
+<style>
+:root{color-scheme:light;--blue:#1F497D;--accent:#4F81BD;}
+html{background:#ffffff;}
+*{box-sizing:border-box;}
+body{font-family:Calibri,"Segoe UI",Arial,sans-serif;background:#ffffff;color:#23303d;line-height:1.5;max-width:920px;margin:0 auto;padding:28px 22px 80px;}
+h1{color:var(--blue);font-size:30px;border-bottom:3px solid var(--blue);padding-bottom:8px;margin-top:.2em;}
+h2{color:var(--blue);font-size:22px;margin-top:1.7em;border-bottom:1px solid #d7e0ea;padding-bottom:4px;}
+h3{color:var(--blue);font-size:17px;margin-top:1.3em;}
+p,li{font-size:15px;}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;font-size:13.5px;background:#fff;}
+th,td{border:1px solid #cdd8e6;padding:6px 9px;text-align:left;vertical-align:top;}
+th{background:var(--blue);color:#fff;}
+tbody tr:nth-child(even) td{background:#f4f7fb;}
+code{background:#eef3f9;color:var(--blue);border-radius:3px;padding:0 4px;font-size:.92em;}
+blockquote{border-left:4px solid var(--accent);background:#f4f7fb;margin:1.1em 0;padding:9px 15px;color:#3a4a59;}
+blockquote p{margin:.3em 0;}
+strong{color:#0b6e4f;}
+a{color:var(--blue);}
+hr{border:none;border-top:1px solid #e3e9f0;margin:1.8em 0;}
+.fig{text-align:center;margin:1.3em 0;}
+.fig svg{max-width:100%;height:auto;}
+@media (prefers-color-scheme:dark){html,body{background:#ffffff;color:#23303d;}}
+@media print{body{max-width:none;}}
+</style></head><body>
+<h1>Tutorial — Adapting WHO HIV DAK L2 Artifacts to Ethiopia</h1>
+<p>A hands-on walkthrough. By the end you can: read each DAK annex, follow the WHO authoring conventions, and adapt <strong>two kinds of artifact</strong> to Ethiopia — a <strong>decision-support table</strong> and an <strong>indicator</strong> — in the exact format that feeds the L3 FHIR Implementation Guide.</p>
+<blockquote>
+<p><strong>Start here:</strong> Ethiopia's DAK is <strong>already heavily localized</strong> — the data dictionary differs from the WHO default by 298 added, 204 removed, and 1,124 modified elements (full delta in the companion <strong>change report</strong>). So the work is <strong>reviewing, wiring, and validating</strong> what already exists, not authoring from a blank generic DAK. The two cheat sheets capture the repeatable recipe; <code>[confirm: ETH]</code> marks the few points still to settle against national guidelines.</p>
+</blockquote>
+<hr />
+<h2>Part 1 — Orientation: the files you work in</h2>
+<p>A WHO DAK ships as a narrative PDF plus four Excel <strong>web annexes</strong>. Three matter here, wired together by one rule — <strong>collect once, use many times</strong>: every value a decision table or indicator uses must first exist as a <strong>data element</strong> in the data dictionary.</p>
+<div class="fig"><svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#4F81BD"/>
+    </marker>
+  </defs>
+  <text x="500" y="30" font-size="22" font-weight="bold" fill="#1F497D" text-anchor="middle">The DAK Excel annexes — collect once, use many</text>
+
+  <!-- arrows -->
+  <path d="M300,188 C480,150 520,120 690,108" fill="none" stroke="#4F81BD" stroke-width="2.5" marker-end="url(#a)"/>
+  <path d="M300,236 C480,270 520,292 690,292" fill="none" stroke="#4F81BD" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="497" y="198" font-size="15" font-weight="bold" fill="#0b6e4f" text-anchor="middle">collect once,</text>
+  <text x="497" y="219" font-size="15" font-weight="bold" fill="#0b6e4f" text-anchor="middle">use many</text>
+  <text x="497" y="245" font-size="12" fill="#51616f" text-anchor="middle">every value is a data element</text>
+
+  <!-- A -->
+  <rect x="50" y="150" width="250" height="120" rx="12" fill="#1F497D"/>
+  <text x="175" y="192" font-size="26" font-weight="bold" fill="#fff" text-anchor="middle">Annex A</text>
+  <text x="175" y="220" font-size="18" fill="#fff" text-anchor="middle">Data Dictionary</text>
+  <text x="175" y="244" font-size="13" fill="#cdd9ea" text-anchor="middle">the data elements (vocabulary)</text>
+
+  <!-- B -->
+  <rect x="690" y="60" width="280" height="96" rx="10" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="830" y="98" font-size="17" font-weight="bold" fill="#1F497D" text-anchor="middle">Annex B — Decision-Support Logic</text>
+  <text x="830" y="124" font-size="14" fill="#51616f" text-anchor="middle">you author decision tables here</text>
+
+  <!-- C -->
+  <rect x="690" y="244" width="280" height="96" rx="10" fill="#EEF3F9" stroke="#0b6e4f" stroke-width="1.5"/>
+  <text x="830" y="282" font-size="17" font-weight="bold" fill="#1F497D" text-anchor="middle">Annex C — Indicators</text>
+  <text x="830" y="308" font-size="14" fill="#51616f" text-anchor="middle">you author indicators here</text>
+
+  <!-- D -->
+  <rect x="50" y="305" width="250" height="62" rx="10" fill="#eef0f2" stroke="#b9c2cc" stroke-width="1.5"/>
+  <text x="175" y="332" font-size="15" font-weight="bold" fill="#51616f" text-anchor="middle">Annex D — Requirements</text>
+  <text x="175" y="353" font-size="12" fill="#8a96a3" text-anchor="middle">reference, not edited here</text>
+</svg>
+</div>
+<h3>1a · Data Dictionary (Annex A)</h3>
+<p>The project's <strong>vocabulary</strong>. Organized into <strong>12 clinical module tabs</strong> (Registration, HTS visit, PrEP visit, Care-Treatment, HIV-TB, PMTCT, Diagnostics, Follow-up, Referral, Prevention, Surveillance, Configuration), plus COVER and README. <em>(WHO HIV DAK 2nd ed.; data dictionary v1.0.0-beta.)</em></p>
+<p><strong>How to read a row</strong> — each row is one data element:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>What it tells you</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Activity ID</td>
+<td>the workflow step it belongs to</td>
+</tr>
+<tr>
+<td><strong>Data Element ID</strong></td>
+<td>the stable handle, e.g. <code>HIV.B.DE94</code></td>
+</tr>
+<tr>
+<td>Data Element Label</td>
+<td>human name, e.g. "Test result of HIV assay 1"</td>
+</tr>
+<tr>
+<td>Description and Definition</td>
+<td>meaning, units</td>
+</tr>
+<tr>
+<td>Multiple Choice</td>
+<td>Select one / Select all that apply / Input Option</td>
+</tr>
+<tr>
+<td>Data Type</td>
+<td>Boolean, String, Date, DateTime, ID, Quantity, Coding, <strong>Codes</strong>, …</td>
+</tr>
+<tr>
+<td>Input Options</td>
+<td>the coded answer options</td>
+</tr>
+<tr>
+<td>Quantity Sub-type</td>
+<td>Integer / Decimal / Duration</td>
+</tr>
+<tr>
+<td>Calculation · Validation Condition</td>
+<td>derivation formula; data-entry rules</td>
+</tr>
+<tr>
+<td>Required</td>
+<td><strong>R</strong> required / <strong>O</strong> optional / <strong>C</strong> conditional</td>
+</tr>
+<tr>
+<td><strong>Linkages to Decision Support Tables</strong></td>
+<td>which table(s) consume this element</td>
+</tr>
+<tr>
+<td><strong>Linkages to aggregate indicators</strong></td>
+<td>which indicator(s) consume this element</td>
+</tr>
+<tr>
+<td>Mapping to code systems (+ relationship)</td>
+<td>ICD-11 / LOINC / SNOMED / national codes; Equivalent / narrower / broader</td>
+</tr>
+</tbody>
+</table>
+<p>The two <strong>Linkage</strong> columns are your map: filter a module tab by them to see exactly which elements feed a given table or indicator.</p>
+<h3>1b · Decision-Support Logic (Annex B) — <em>you author here</em></h3>
+<p>One table per decision point, written as a <strong>DMN</strong> (Decision Model and Notation) spreadsheet. Column convention used by the WHO HIV IG:
+<code>Rule ID</code> · <code>Condition Inputs</code> (one column per input element) · <code>Output Type</code> · <code>Action</code> · <code>Guidance</code> · <code>Annotations</code> · <code>Reference(s)</code> — with a declared <strong>Hit Policy</strong> (e.g. <em>Rule order</em>) and explicit operators (<code>=</code>, <code>IN</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>is NULL</code>, <code>=True/=False</code>). Read a rule left-to-right: <em>when the inputs match these conditions → produce this output and action.</em></p>
+<h3>1c · Indicators (Annex C) — <em>you author here</em></h3>
+<p>One block per indicator, using the L2 template fields: <strong>short name · indicator definition · category · what it measures · rationale · numerator definition · numerator calculation · denominator definition · denominator calculation · disaggregation description · reference</strong> (plus DAK ID and the WHO Strategic Information reference number). Read an indicator by checking its numerator/denominator point at real <strong>data-dictionary elements</strong>.</p>
+<h3>1d · Requirements (Annex D)</h3>
+<p>Functional / non-functional system requirements. Not edited in this session; know it exists.</p>
+<hr />
+<h2>Part 2 — The authoring method</h2>
+<p>Adapting any artifact follows the same loop. You start from the WHO version (never a blank page) and author the <strong>~20%</strong> that is national.</p>
+<div class="fig"><svg viewBox="0 0 1080 200" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <text x="540" y="28" font-size="20" font-weight="bold" fill="#1F497D" text-anchor="middle">The adaptation loop</text>
+
+  <!-- pills -->
+  <g>
+    <!-- 1 -->
+    <rect x="24" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="105" cy="84" r="15" fill="#fff"/><text x="105" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">1</text>
+    <text x="105" y="122" font-size="15" fill="#fff" text-anchor="middle">Locate</text>
+    <!-- 2 -->
+    <rect x="200" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="281" cy="84" r="15" fill="#fff"/><text x="281" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">2</text>
+    <text x="281" y="122" font-size="15" fill="#fff" text-anchor="middle">Read WHO logic</text>
+    <!-- 3 -->
+    <rect x="376" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="457" cy="84" r="15" fill="#fff"/><text x="457" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">3</text>
+    <text x="457" y="116" font-size="15" fill="#fff" text-anchor="middle">Find national</text>
+    <text x="457" y="133" font-size="15" fill="#fff" text-anchor="middle">divergences</text>
+    <!-- 4 -->
+    <rect x="552" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="633" cy="84" r="15" fill="#fff"/><text x="633" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">4</text>
+    <text x="633" y="116" font-size="15" fill="#fff" text-anchor="middle">Author</text>
+    <text x="633" y="133" font-size="15" fill="#fff" text-anchor="middle">(WHO format)</text>
+    <!-- 5 -->
+    <rect x="728" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="809" cy="84" r="15" fill="#fff"/><text x="809" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">5</text>
+    <text x="809" y="122" font-size="15" fill="#fff" text-anchor="middle">Check</text>
+    <!-- 6 -->
+    <rect x="904" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="985" cy="84" r="15" fill="#fff"/><text x="985" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">6</text>
+    <text x="985" y="116" font-size="15" fill="#fff" text-anchor="middle">Record</text>
+    <text x="985" y="133" font-size="15" fill="#fff" text-anchor="middle">provenance</text>
+  </g>
+
+  <!-- chevrons between pills -->
+  <g font-size="22" font-weight="bold" fill="#1F497D" text-anchor="middle">
+    <text x="193" y="106">›</text><text x="369" y="106">›</text><text x="545" y="106">›</text><text x="721" y="106">›</text><text x="897" y="106">›</text>
+  </g>
+
+  <text x="540" y="174" font-size="13" fill="#51616f" text-anchor="middle">↻ repeat for each table or indicator — every finished artifact feeds L3 (PlanDefinition + CQL · Measure + CQL)</text>
+</svg>
+</div>
+<p>The rules that keep an artifact valid:
+- <strong>Collect once, use many</strong> — every value used must be a data element in Annex A. Need one that isn't there? <strong>Add it to the dictionary first.</strong>
+- <strong>Changes propagate</strong> — add, remove, or re-value a data element and you must update every table and indicator linked to it. The <em>Linkages to Decision Support Tables / aggregate indicators</em> columns in Annex A are your impact map.
+- <strong>Decision tables follow DMN</strong> and stay small — <strong>avoid 10+ inputs</strong> (split into separate tables).
+- <strong>Indicators must be computable</strong> from routine data. If a metric needs a survey or external aggregate (e.g. condoms distributed, key-population coverage), it is <strong>not</strong> a DAK indicator — it is measured elsewhere.
+- <strong>Preserve clinical-safety logic</strong> when you adapt — don't drop a WHO rule by accident.
+- <strong>Record provenance</strong> — note what diverged from the WHO DAK and why; track the version.</p>
+<p>A finished artifact is the direct input to the L3 FHIR IG:</p>
+<div class="fig"><svg viewBox="0 0 1000 260" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="m" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#1F497D"/>
+    </marker>
+  </defs>
+  <text x="500" y="30" font-size="20" font-weight="bold" fill="#1F497D" text-anchor="middle">From L2 (you author) to L3 (FHIR)</text>
+  <text x="230" y="58" font-size="14" fill="#51616f" text-anchor="middle">L2 — DAK Excel</text>
+  <text x="790" y="58" font-size="14" fill="#51616f" text-anchor="middle">L3 — FHIR Implementation Guide</text>
+
+  <rect x="60" y="78" width="320" height="64" rx="10" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="220" y="116" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">Decision table (Annex B)</text>
+  <rect x="60" y="168" width="320" height="64" rx="10" fill="#EEF3F9" stroke="#0b6e4f" stroke-width="1.5"/>
+  <text x="220" y="206" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">Indicator (Annex C)</text>
+
+  <rect x="620" y="78" width="320" height="64" rx="10" fill="#1F497D"/>
+  <text x="780" y="116" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">PlanDefinition + Library + CQL</text>
+  <rect x="620" y="168" width="320" height="64" rx="10" fill="#1F497D"/>
+  <text x="780" y="206" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">Measure + CQL</text>
+
+  <path d="M380,110 L620,110" fill="none" stroke="#1F497D" stroke-width="2.5" marker-end="url(#m)"/>
+  <path d="M380,200 L620,200" fill="none" stroke="#1F497D" stroke-width="2.5" marker-end="url(#m)"/>
+  <text x="500" y="100" font-size="13" fill="#51616f" text-anchor="middle">L3 authoring</text>
+  <text x="500" y="190" font-size="13" fill="#51616f" text-anchor="middle">L3 authoring</text>
+</svg>
+</div>
+<hr />
+<h2>Part 3 — Walkthrough 1: a decision-support table</h2>
+<p><em>Example: the national HIV testing algorithm.</em></p>
+<p><strong>What a decision-support table is.</strong> A set of rules that turn recorded inputs into a recommended output/action — the computable form of "if the guideline says X, do Y." A national HIV testing algorithm is one of the most country-specific examples: every country sets its own assays and test sequence.</p>
+<p><strong>What Ethiopia already changed here.</strong> <code>HIV.B7.DT</code> is one of the most-adapted tables in the dictionary (+21 / −1 / 31 modified): Ethiopia added an <strong>"Invalid"</strong> result value, <strong>verification-on-discordance</strong> and <strong>retest-before-ART</strong> steps (the latter wired to <code>HIV.D12.DT</code>), and a <strong>maternal-serology reuse</strong> in PMTCT. Some additions still have <strong>blank linkage cells</strong> — so this walkthrough is about <strong>wiring and reconciling those existing changes</strong>, not authoring from scratch.</p>
+<p>The logic you are encoding:</p>
+<div class="fig"><svg viewBox="0 0 760 630" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="f" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#1F497D"/>
+    </marker>
+  </defs>
+
+  <!-- spine arrows -->
+  <g fill="none" stroke="#1F497D" stroke-width="2" marker-end="url(#f)">
+    <path d="M300,66 L300,88"/>
+    <path d="M300,180 L300,208"/>
+    <path d="M300,256 L300,276"/>
+    <path d="M300,362 L300,390"/>
+    <path d="M300,438 L300,456"/>
+    <path d="M300,542 L300,560"/>
+    <path d="M205,135 L172,135"/>
+    <path d="M210,320 L202,320"/>
+    <path d="M390,500 L468,500"/>
+  </g>
+
+  <!-- P1 -->
+  <rect x="210" y="20" width="180" height="46" rx="8" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="300" y="48" font-size="14" fill="#1F497D" text-anchor="middle">Test on Assay 1 (A1)</text>
+  <!-- D1 -->
+  <polygon points="300,90 395,135 300,180 205,135" fill="#fff" stroke="#1F497D" stroke-width="1.5"/>
+  <text x="300" y="140" font-size="13" fill="#1F497D" text-anchor="middle">A1 reactive?</text>
+  <text x="97" y="104" font-size="11" fill="#51616f" text-anchor="middle">non-reactive</text>
+  <text x="322" y="200" font-size="11" fill="#51616f" text-anchor="middle">reactive</text>
+  <!-- T-neg -->
+  <rect x="22" y="112" width="150" height="46" rx="8" fill="#0b6e4f"/>
+  <text x="97" y="140" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">HIV-negative</text>
+
+  <!-- P2 -->
+  <rect x="210" y="208" width="180" height="46" rx="8" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="300" y="236" font-size="14" fill="#1F497D" text-anchor="middle">Test on Assay 2 (A2)</text>
+  <!-- D2 -->
+  <polygon points="300,278 390,320 300,362 210,320" fill="#fff" stroke="#1F497D" stroke-width="1.5"/>
+  <text x="300" y="325" font-size="13" fill="#1F497D" text-anchor="middle">A2 reactive?</text>
+  <text x="108" y="290" font-size="11" fill="#51616f" text-anchor="middle">non-reactive</text>
+  <text x="322" y="382" font-size="11" fill="#51616f" text-anchor="middle">reactive</text>
+  <!-- Discrepant -->
+  <rect x="15" y="297" width="187" height="46" rx="8" fill="#fff" stroke="#d9a441" stroke-width="1.5"/>
+  <text x="108" y="325" font-size="13" fill="#9a6a00" text-anchor="middle">Discrepant → repeat A1</text>
+
+  <!-- P3 -->
+  <rect x="210" y="390" width="180" height="46" rx="8" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="300" y="418" font-size="14" fill="#1F497D" text-anchor="middle">Test on Assay 3 (A3)</text>
+  <!-- D3 -->
+  <polygon points="300,458 390,500 300,542 210,500" fill="#fff" stroke="#1F497D" stroke-width="1.5"/>
+  <text x="300" y="505" font-size="13" fill="#1F497D" text-anchor="middle">A3 reactive?</text>
+  <text x="322" y="558" font-size="11" fill="#51616f" text-anchor="middle">reactive</text>
+  <text x="430" y="490" font-size="11" fill="#51616f" text-anchor="middle">non-reactive</text>
+  <!-- T-pos -->
+  <rect x="160" y="560" width="280" height="48" rx="8" fill="#1F497D"/>
+  <text x="300" y="589" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">HIV-positive → verify, link to ART</text>
+  <!-- T-inconclusive -->
+  <rect x="470" y="476" width="250" height="48" rx="8" fill="#fff" stroke="#d9a441" stroke-width="1.5"/>
+  <text x="595" y="496" font-size="13" fill="#9a6a00" text-anchor="middle">Inconclusive →</text>
+  <text x="595" y="514" font-size="13" fill="#9a6a00" text-anchor="middle">retest in 14 days</text>
+</svg>
+</div>
+<p><strong>Step 1 — Locate.</strong> In the Data Dictionary → HTS visit tab, filter <em>Linkages to Decision Support Tables</em> for the testing-algorithm table. You get its inputs and output, including: <code>HIV.B.DE90/91/92</code> (<strong>Assay 1/2/3</strong>), <code>HIV.B.DE94 / DE97 / DE100</code> (<strong>Test result of HIV assay 1/2/3</strong>, coded <em>Reactive/Non-reactive</em>), <code>HIV.B.DE93</code> (<strong>Assay 1 repeated</strong>) with its result <code>HIV.B.DE103</code>, and <code>HIV.B.DE107</code> (<strong>HIV test result</strong> — the output; coded HIV-positive / HIV-negative / HIV-inconclusive).</p>
+<p><strong>Step 2 — Read the WHO logic.</strong> Write down the safety invariants you must keep: everyone tested on Assay 1; <strong>A1 non-reactive → HIV-negative</strong>; reactive proceeds <strong>serially A1 → A2 → A3</strong>; <strong>discrepant</strong> (<code>A1+ ; A2−</code>) → <strong>repeat Assay 1</strong>; <strong>inconclusive → retest at visit date + 14 days</strong>; infants &lt;18 months → route to EID/virologic logic.</p>
+<p><strong>Step 3 — Find the national divergences</strong> <code>[confirm: ETH]</code>: which national products are A1/A2/A3; serial vs any parallel step; the retest interval; whether re-test-to-verify before ART is required; which entry points/modalities are in use.</p>
+<p><strong>Step 4 — Author</strong> (in the Annex B format; Hit Policy = <em>Rule order</em>). Each input cell points at a dictionary element + coded option, not free text:</p>
+<table>
+<thead>
+<tr>
+<th>Rule ID</th>
+<th>Result A1 (<code>DE94</code>)</th>
+<th>Result A2 (<code>DE97</code>)</th>
+<th>Result A3 (<code>DE100</code>)</th>
+<th>Output: HIV test result (<code>DE107</code>)</th>
+<th>Action / Guidance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B7-R1</td>
+<td><code>= Non-reactive</code></td>
+<td>—</td>
+<td>—</td>
+<td>HIV-negative</td>
+<td>report negative; window-period retest if recent exposure</td>
+</tr>
+<tr>
+<td>B7-R2</td>
+<td><code>= Reactive</code></td>
+<td><code>= Reactive</code></td>
+<td><code>= Reactive</code></td>
+<td>HIV-positive</td>
+<td>verify per policy; link to ART</td>
+</tr>
+<tr>
+<td>B7-R3</td>
+<td><code>= Reactive</code></td>
+<td><code>= Reactive</code></td>
+<td><code>= Non-reactive</code></td>
+<td>HIV-inconclusive</td>
+<td>retest at visit date <strong>+14 days</strong> <code>[confirm: ETH]</code></td>
+</tr>
+<tr>
+<td>B7-R4</td>
+<td><code>= Reactive</code></td>
+<td><code>= Non-reactive</code></td>
+<td>—</td>
+<td>(discrepant)</td>
+<td>repeat Assay 1 (<code>DE93</code>), record result (<code>DE103</code>); if still discordant → inconclusive → retest +14d</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 5 — Check.</strong> ≤10 inputs ✓; every input/output is a dictionary element ✓; all safety invariants present ✓; add <code>Reference(s)</code> (WHO HTS 2019 + the Ethiopia national HTS guideline).</p>
+<p><strong>Step 6 — Record provenance.</strong> In <code>Annotations</code>, note what changed from the WHO generic table and why (e.g. "A1/A2/A3 set to national products X/Y/Z per Ethiopia HTS guideline").</p>
+<p><strong>Produce it (the workshop output).</strong> Open the WHO <strong>Annex B</strong> (<code>2023.28</code>), sheet <code>HIV.B7.DT</code>. The current rules <code>B7.DT.01–08</code> branch only on Reactive/Non-reactive — <strong>add the Invalid branch(es)</strong> (Invalid on an assay → handle per national SOP), confirm the national assays in the <code>HIV test type</code> condition, and save it as the Ethiopia Annex B. That edited sheet <strong>is</strong> the deliverable.</p>
+<p><strong>Where it goes (L3).</strong> This table becomes a FHIR <code>PlanDefinition</code> + <code>Library</code> + CQL — preserve the rules above so the safety behavior is not re-broken downstream.</p>
+<hr />
+<h2>Part 4 — Walkthrough 2: an indicator</h2>
+<p><em>Example: HIV testing positivity (yield).</em></p>
+<p><strong>What an indicator is.</strong> A measured number — a numerator over a denominator, built from recorded data — used to monitor program performance. HIV testing positivity runs off the <strong>same</strong> element the testing algorithm produces (the HIV test result, <code>HIV.B.DE107</code>), so one piece of logic serves both care and reporting.</p>
+<p><strong>Two Ethiopia wrinkles to handle.</strong> The HIV test result now <strong>also lives in Ethiopia's new Surveillance module</strong> (<code>HIV.Surveil.DE2</code>) — so decide the <strong>source of truth</strong> the indicator reads. And several referenced elements moved or changed in the DD — so positivity uses the <strong>localized</strong> result and disaggregation value sets (re-point and adopt them as-is).</p>
+<p>The shape you are encoding:</p>
+<div class="fig"><svg viewBox="0 0 940 360" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="i" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#4F81BD"/>
+    </marker>
+  </defs>
+
+  <!-- numerator -->
+  <rect x="110" y="56" width="400" height="66" rx="8" fill="#EEF3F9" stroke="#0b6e4f" stroke-width="1.5"/>
+  <text x="310" y="88" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">people who tested HIV-positive</text>
+  <text x="310" y="110" font-size="12" fill="#51616f" text-anchor="middle">in the reporting period (numerator)</text>
+  <!-- bar -->
+  <line x1="110" y1="140" x2="510" y2="140" stroke="#1F497D" stroke-width="3"/>
+  <!-- denominator -->
+  <rect x="110" y="156" width="400" height="66" rx="8" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="310" y="188" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">people tested for HIV</text>
+  <text x="310" y="210" font-size="12" fill="#51616f" text-anchor="middle">in the reporting period (denominator)</text>
+
+  <text x="540" y="153" font-size="40" fill="#1F497D">=</text>
+  <text x="590" y="135" font-size="22" font-weight="bold" fill="#0b6e4f">HIV positivity</text>
+  <text x="590" y="162" font-size="15" fill="#51616f">(testing yield)</text>
+
+  <!-- disaggregation -->
+  <text x="590" y="208" font-size="14" font-weight="bold" fill="#1F497D">disaggregate by:</text>
+  <rect x="590" y="220" width="320" height="30" rx="15" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.2"/>
+  <text x="606" y="240" font-size="13" fill="#1F497D">age — incl. &lt;1 and 1–14 (peds gap)</text>
+  <rect x="590" y="258" width="150" height="30" rx="15" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.2"/>
+  <text x="606" y="278" font-size="13" fill="#1F497D">sex</text>
+  <rect x="590" y="296" width="320" height="30" rx="15" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.2"/>
+  <text x="606" y="316" font-size="13" fill="#1F497D">testing modality / entry point</text>
+
+  <!-- source -->
+  <path d="M310,276 L310,228" fill="none" stroke="#4F81BD" stroke-width="2" marker-end="url(#i)"/>
+  <rect x="110" y="276" width="400" height="50" rx="8" fill="#fff" stroke="#b9c2cc" stroke-width="1.5"/>
+  <text x="310" y="297" font-size="12" fill="#51616f" text-anchor="middle">both counts come from data-dictionary elements</text>
+  <text x="310" y="316" font-size="13" font-weight="bold" fill="#1F497D" text-anchor="middle">HIV test result · HIV test date</text>
+</svg>
+</div>
+<p><strong>Step 1 — Locate.</strong> Confirm it's <strong>computable</strong>: positivity = (tested-positive) / (tested), both counts over routine data ✓. (Contrast metrics that need a survey or external/aggregate source — condoms distributed, needle/syringe, condom use, KP-know-status, KP-on-ART — which are <em>not computable from routine DAK data</em>; they are measured elsewhere, not authored as DAK logic.)</p>
+<p><strong>Step 2 — Read the WHO logic.</strong> The numerator and denominator both reference data elements that already exist in the dictionary — <strong>HIV test result</strong> (<code>HIV.B.DE107</code>) and <strong>HIV test date</strong>. Nothing new to add.</p>
+<p><strong>Step 3 — Find the national divergences</strong> <code>[confirm: ETH]</code>: which disaggregations Ethiopia reports, and the exact national definitions of "tested" and "positive" so the indicator reconciles with existing figures.</p>
+<p><strong>Step 4 — Author</strong> (in the Annex C template):
+- <em>Numerator definition:</em> individuals with <strong>HIV test result = HIV-positive</strong> in the reporting period. <em>Calculation:</em> <code>COUNT clients where [HIV test result]=HIV-positive AND [HIV test date] in period</code>.
+- <em>Denominator definition:</em> individuals <strong>tested</strong> in the period. <em>Calculation:</em> <code>COUNT clients where [HIV test date] in period</code>.
+- <em>Disaggregation:</em> <strong>age incl. &lt;1 and 1–14</strong> (the pediatric gap), sex, testing modality/entry point, location.
+- <em>Reference / DAK ID / SI ref:</em> fill from the DAK indicators annex.</p>
+<p><strong>Step 5 — Check.</strong> Numerator and denominator come only from dictionary elements ✓; align to national reporting (<strong>PEPFAR MER <code>HTS_TST</code> / <code>HTS_TST_POS</code></strong>; DHIS2/HMIS) <code>[confirm: ETH]</code>; <strong>reconcile against a known total</strong> (e.g. last quarter's positives) as a validity check.</p>
+<p><strong>Step 6 — Record provenance.</strong> Note any divergence from the WHO indicator definition and the national reference.</p>
+<p><strong>Produce it (the workshop output).</strong> Open the WHO <strong>Annex C</strong> (<code>2023.29</code>), <code>Indicator definitions</code>, row <strong>HTS.2</strong>. <strong>Re-point</strong> the named inputs to the localized IDs — <code>Date HIV test results returned</code> → <code>B.DE58</code>; HIV test date/result → the Surveillance element you chose as source of truth — <strong>add Invalid handling</strong> to the numerator, and set the disaggregation to the localized value sets. The edited row <strong>is</strong> the deliverable. (A "removed" element is usually just renumbered — search the DD by label for the new ID before assuming it's gone.)</p>
+<p><strong>Where it goes (L3).</strong> This indicator becomes a FHIR <code>Measure</code> + CQL (sharing a common <code>IndicatorLogic</code> library).</p>
+<hr />
+<h2>Part 5 — Keep going</h2>
+<p>The loop is always the same — <strong>Locate → read the WHO logic → find the national divergences → author in the WHO format → check → record provenance → hand to L3</strong> — for the next table or indicator. Two one-page cheat sheets — one for <strong>decision tables</strong>, one for <strong>indicators</strong> — are the quick references to keep beside the annexes.</p>
+</body></html>

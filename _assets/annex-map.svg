@@ -1,0 +1,36 @@
+<svg viewBox="0 0 1000 400" width="1000" height="400" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#4F81BD"/>
+    </marker>
+  </defs>
+  <text x="500" y="30" font-size="22" font-weight="bold" fill="#1F497D" text-anchor="middle">The DAK Excel annexes — collect once, use many</text>
+
+  <!-- arrows -->
+  <path d="M300,188 C480,150 520,120 690,108" fill="none" stroke="#4F81BD" stroke-width="2.5" marker-end="url(#a)"/>
+  <path d="M300,236 C480,270 520,292 690,292" fill="none" stroke="#4F81BD" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="497" y="198" font-size="15" font-weight="bold" fill="#0b6e4f" text-anchor="middle">collect once,</text>
+  <text x="497" y="219" font-size="15" font-weight="bold" fill="#0b6e4f" text-anchor="middle">use many</text>
+  <text x="497" y="245" font-size="12" fill="#51616f" text-anchor="middle">every value is a data element</text>
+
+  <!-- A -->
+  <rect x="50" y="150" width="250" height="120" rx="12" fill="#1F497D"/>
+  <text x="175" y="192" font-size="26" font-weight="bold" fill="#fff" text-anchor="middle">Annex A</text>
+  <text x="175" y="220" font-size="18" fill="#fff" text-anchor="middle">Data Dictionary</text>
+  <text x="175" y="244" font-size="13" fill="#cdd9ea" text-anchor="middle">the data elements (vocabulary)</text>
+
+  <!-- B -->
+  <rect x="690" y="60" width="280" height="96" rx="10" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="830" y="98" font-size="17" font-weight="bold" fill="#1F497D" text-anchor="middle">Annex B — Decision-Support Logic</text>
+  <text x="830" y="124" font-size="14" fill="#51616f" text-anchor="middle">you author decision tables here</text>
+
+  <!-- C -->
+  <rect x="690" y="244" width="280" height="96" rx="10" fill="#EEF3F9" stroke="#0b6e4f" stroke-width="1.5"/>
+  <text x="830" y="282" font-size="17" font-weight="bold" fill="#1F497D" text-anchor="middle">Annex C — Indicators</text>
+  <text x="830" y="308" font-size="14" fill="#51616f" text-anchor="middle">you author indicators here</text>
+
+  <!-- D -->
+  <rect x="50" y="305" width="250" height="62" rx="10" fill="#eef0f2" stroke="#b9c2cc" stroke-width="1.5"/>
+  <text x="175" y="332" font-size="15" font-weight="bold" fill="#51616f" text-anchor="middle">Annex D — Requirements</text>
+  <text x="175" y="353" font-size="12" fill="#8a96a3" text-anchor="middle">reference, not edited here</text>
+</svg>

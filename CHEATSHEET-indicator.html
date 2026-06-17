@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Cheat Sheet — Adapting an Indicator</title>
+<style>
+  @page { size: A4 landscape; margin: 9mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Calibri,"Segoe UI",Arial,sans-serif; color:#23303d; margin:0; font-size:12.4px; line-height:1.32; }
+  .wrap { max-width: 1130px; margin:0 auto; padding:6px; }
+  header { background:#1F497D; color:#fff; border-radius:10px; padding:11px 18px; display:flex; align-items:center; justify-content:space-between; }
+  header h1 { font-size:21px; margin:0; }
+  header .sub { font-size:12.5px; color:#cdd9ea; margin-top:3px; }
+  .chip { background:#0b6e4f; color:#fff; font-weight:bold; font-size:11.5px; letter-spacing:.6px; padding:6px 13px; border-radius:14px; white-space:nowrap; }
+  .loop { text-align:center; margin:9px 0 4px; }
+  .loop img { width:100%; max-width:1000px; }
+  .grid { display:grid; grid-template-columns:1.18fr 1fr; gap:13px; align-items:start; }
+  .card { border:1px solid #d7e0ea; border-radius:9px; padding:9px 12px; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:#1F497D; margin:0 0 6px; }
+  ol.steps { margin:0; padding:0; list-style:none; counter-reset:s; }
+  ol.steps li { position:relative; padding:5px 0 5px 32px; border-bottom:1px dashed #e3e9f0; }
+  ol.steps li:last-child { border-bottom:none; }
+  ol.steps li::before { counter-increment:s; content:counter(s); position:absolute; left:0; top:5px; width:23px; height:23px; border-radius:50%; background:#4F81BD; color:#fff; font-weight:bold; text-align:center; line-height:23px; font-size:12.5px; }
+  .t { font-weight:bold; color:#1F497D; }
+  .diagram { text-align:center; }
+  .diagram img { width:100%; max-width:380px; }
+  code { background:#eef3f9; border-radius:3px; padding:0 4px; color:#1F497D; font-size:11.5px; }
+  .strip { display:grid; grid-template-columns:1.25fr 1fr 1fr; gap:13px; margin-top:13px; }
+  .watch { background:#fff7e9; border:1px solid #e6c478; }
+  .watch h2 { color:#9a6a00; }
+  .done { background:#eef7f1; border:1px solid #a3cfb3; }
+  .done h2 { color:#0b6e4f; }
+  ul.tight { margin:0; padding-left:16px; }
+  ul.tight li { margin:2px 0; }
+  .confirm { color:#9a6a00; font-weight:bold; }
+  .stop { color:#b3402f; font-weight:bold; }
+  footer { margin-top:11px; font-size:11px; color:#5a6b7a; border-top:2px solid #1F497D; padding-top:6px; display:flex; justify-content:space-between; gap:14px; }
+  .l3 { font-weight:bold; color:#0b6e4f; }
+</style></head>
+<body><div class="wrap">
+  <header>
+    <div><h1>Adapting an Indicator</h1>
+      <div class="sub">WHO HIV DAK &rarr; Ethiopia &middot; authored in <b>Annex C</b> (indicators &amp; performance metrics)</div></div>
+    <div class="chip">INDICATOR</div>
+  </header>
+
+  <div class="loop"><img src="_assets/adaptation-loop.svg" alt="The adaptation loop: locate, read WHO logic, find national divergences, author, check, record provenance"></div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>The 6 steps</h2>
+      <ol class="steps">
+        <li><span class="t">Locate &amp; check computable.</span> In Annex A, filter by <em>Linkages to aggregate indicators</em>. Numerator and denominator must come from <b>routine data elements</b> &mdash; if it needs a survey or external source, <span class="stop">STOP</span> (not a DAK indicator).</li>
+        <li><span class="t">Read the WHO logic.</span> The numerator and denominator definitions, and which data elements they use.</li>
+        <li><span class="t">Find national divergences.</span> Disaggregations and the exact national definitions of the counts. <span class="confirm">[confirm: ETH]</span></li>
+        <li><span class="t">Author.</span> Fill the Annex C template fields (format &rarr;).</li>
+        <li><span class="t">Check.</span> Numerator &amp; denominator come only from Annex A elements; <b>reconcile</b> against a known total (e.g. last quarter).</li>
+        <li><span class="t">Record provenance.</span> Divergence from the WHO definition + national reference; track the version.</li>
+      </ol>
+    </div>
+    <div class="card diagram">
+      <h2>Worked shape &mdash; HIV testing positivity</h2>
+      <img src="_assets/indicator-anatomy.svg" alt="HIV positivity = positives over tested, both from data-dictionary elements, disaggregated">
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="card">
+      <h2>Format (Annex C)</h2>
+      <ul class="tight">
+        <li>short name &middot; definition &middot; category &middot; what it measures &middot; rationale</li>
+        <li><b>numerator</b> definition + calculation</li>
+        <li><b>denominator</b> definition + calculation</li>
+        <li>disaggregation &middot; reference (+ DAK ID, SI ref)</li>
+        <li>Pattern: <code>COUNT of clients where [element]=value AND [date] in period</code></li>
+      </ul>
+    </div>
+    <div class="card watch">
+      <h2>Don't break it</h2>
+      <ul class="tight">
+        <li><b>Not computable from routine DAK data</b> (survey / supply / multi-source) &mdash; measured elsewhere, not authored as DAK logic: condoms distributed, needles/syringes, condom use, KP know-status, KP on ART</li>
+        <li>Every element must already exist in Annex A</li>
+        <li>Changed a DD element? Update every linked indicator (Annex A <em>Linkage</em> columns)</li>
+        <li>Mind operator <b>precedence</b>; keep population names consistent</li>
+      </ul>
+    </div>
+    <div class="card done">
+      <h2>Done?</h2>
+      <ul class="tight">
+        <li>Computable from routine data</li>
+        <li>Num &amp; denom are Annex A elements</li>
+        <li>Disaggregation matches national reporting</li>
+        <li>Reconciled to a known total</li>
+        <li>Provenance recorded; ground-truthed</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <div>Then it becomes L3: <span class="l3">FHIR Measure + CQL</span></div>
+    <div>Method: WHO SMART Guidelines IG Starter Kit v2.0.0 &middot; WHO HIV DAK 2nd ed. &middot; HIV IG v1.0.0. Ethiopia specifics &rarr; confirm against national guidelines.</div>
+  </footer>
+</div></body></html>

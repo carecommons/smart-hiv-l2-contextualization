@@ -1,0 +1,37 @@
+<svg viewBox="0 0 940 360" width="940" height="360" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="i" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#4F81BD"/>
+    </marker>
+  </defs>
+
+  <!-- numerator -->
+  <rect x="110" y="56" width="400" height="66" rx="8" fill="#EEF3F9" stroke="#0b6e4f" stroke-width="1.5"/>
+  <text x="310" y="88" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">people who tested HIV-positive</text>
+  <text x="310" y="110" font-size="12" fill="#51616f" text-anchor="middle">in the reporting period (numerator)</text>
+  <!-- bar -->
+  <line x1="110" y1="140" x2="510" y2="140" stroke="#1F497D" stroke-width="3"/>
+  <!-- denominator -->
+  <rect x="110" y="156" width="400" height="66" rx="8" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="310" y="188" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">people tested for HIV</text>
+  <text x="310" y="210" font-size="12" fill="#51616f" text-anchor="middle">in the reporting period (denominator)</text>
+
+  <text x="540" y="153" font-size="40" fill="#1F497D">=</text>
+  <text x="590" y="135" font-size="22" font-weight="bold" fill="#0b6e4f">HIV positivity</text>
+  <text x="590" y="162" font-size="15" fill="#51616f">(testing yield)</text>
+
+  <!-- disaggregation -->
+  <text x="590" y="208" font-size="14" font-weight="bold" fill="#1F497D">disaggregate by:</text>
+  <rect x="590" y="220" width="320" height="30" rx="15" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.2"/>
+  <text x="606" y="240" font-size="13" fill="#1F497D">age — incl. &lt;1 and 1–14 (peds gap)</text>
+  <rect x="590" y="258" width="150" height="30" rx="15" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.2"/>
+  <text x="606" y="278" font-size="13" fill="#1F497D">sex</text>
+  <rect x="590" y="296" width="320" height="30" rx="15" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.2"/>
+  <text x="606" y="316" font-size="13" fill="#1F497D">testing modality / entry point</text>
+
+  <!-- source -->
+  <path d="M310,276 L310,228" fill="none" stroke="#4F81BD" stroke-width="2" marker-end="url(#i)"/>
+  <rect x="110" y="276" width="400" height="50" rx="8" fill="#fff" stroke="#b9c2cc" stroke-width="1.5"/>
+  <text x="310" y="297" font-size="12" fill="#51616f" text-anchor="middle">both counts come from data-dictionary elements</text>
+  <text x="310" y="316" font-size="13" font-weight="bold" fill="#1F497D" text-anchor="middle">HIV test result · HIV test date</text>
+</svg>

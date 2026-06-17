@@ -1,0 +1,25 @@
+<svg viewBox="0 0 1000 260" width="1000" height="260" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="m" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 z" fill="#1F497D"/>
+    </marker>
+  </defs>
+  <text x="500" y="30" font-size="20" font-weight="bold" fill="#1F497D" text-anchor="middle">From L2 (you author) to L3 (FHIR)</text>
+  <text x="230" y="58" font-size="14" fill="#51616f" text-anchor="middle">L2 — DAK Excel</text>
+  <text x="790" y="58" font-size="14" fill="#51616f" text-anchor="middle">L3 — FHIR Implementation Guide</text>
+
+  <rect x="60" y="78" width="320" height="64" rx="10" fill="#EEF3F9" stroke="#4F81BD" stroke-width="1.5"/>
+  <text x="220" y="116" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">Decision table (Annex B)</text>
+  <rect x="60" y="168" width="320" height="64" rx="10" fill="#EEF3F9" stroke="#0b6e4f" stroke-width="1.5"/>
+  <text x="220" y="206" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">Indicator (Annex C)</text>
+
+  <rect x="620" y="78" width="320" height="64" rx="10" fill="#1F497D"/>
+  <text x="780" y="116" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">PlanDefinition + Library + CQL</text>
+  <rect x="620" y="168" width="320" height="64" rx="10" fill="#1F497D"/>
+  <text x="780" y="206" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">Measure + CQL</text>
+
+  <path d="M380,110 L620,110" fill="none" stroke="#1F497D" stroke-width="2.5" marker-end="url(#m)"/>
+  <path d="M380,200 L620,200" fill="none" stroke="#1F497D" stroke-width="2.5" marker-end="url(#m)"/>
+  <text x="500" y="100" font-size="13" fill="#51616f" text-anchor="middle">L3 authoring</text>
+  <text x="500" y="190" font-size="13" fill="#51616f" text-anchor="middle">L3 authoring</text>
+</svg>

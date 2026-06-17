@@ -1,0 +1,41 @@
+<svg viewBox="0 0 1080 200" width="1080" height="200" xmlns="http://www.w3.org/2000/svg" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <text x="540" y="28" font-size="20" font-weight="bold" fill="#1F497D" text-anchor="middle">The adaptation loop</text>
+
+  <!-- pills -->
+  <g>
+    <!-- 1 -->
+    <rect x="24" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="105" cy="84" r="15" fill="#fff"/><text x="105" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">1</text>
+    <text x="105" y="122" font-size="15" fill="#fff" text-anchor="middle">Locate</text>
+    <!-- 2 -->
+    <rect x="200" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="281" cy="84" r="15" fill="#fff"/><text x="281" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">2</text>
+    <text x="281" y="122" font-size="15" fill="#fff" text-anchor="middle">Read WHO logic</text>
+    <!-- 3 -->
+    <rect x="376" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="457" cy="84" r="15" fill="#fff"/><text x="457" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">3</text>
+    <text x="457" y="116" font-size="15" fill="#fff" text-anchor="middle">Find national</text>
+    <text x="457" y="133" font-size="15" fill="#fff" text-anchor="middle">divergences</text>
+    <!-- 4 -->
+    <rect x="552" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="633" cy="84" r="15" fill="#fff"/><text x="633" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">4</text>
+    <text x="633" y="116" font-size="15" fill="#fff" text-anchor="middle">Author</text>
+    <text x="633" y="133" font-size="15" fill="#fff" text-anchor="middle">(WHO format)</text>
+    <!-- 5 -->
+    <rect x="728" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="809" cy="84" r="15" fill="#fff"/><text x="809" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">5</text>
+    <text x="809" y="122" font-size="15" fill="#fff" text-anchor="middle">Check</text>
+    <!-- 6 -->
+    <rect x="904" y="58" width="162" height="80" rx="12" fill="#4F81BD"/>
+    <circle cx="985" cy="84" r="15" fill="#fff"/><text x="985" y="89" font-size="16" font-weight="bold" fill="#1F497D" text-anchor="middle">6</text>
+    <text x="985" y="116" font-size="15" fill="#fff" text-anchor="middle">Record</text>
+    <text x="985" y="133" font-size="15" fill="#fff" text-anchor="middle">provenance</text>
+  </g>
+
+  <!-- chevrons between pills -->
+  <g font-size="22" font-weight="bold" fill="#1F497D" text-anchor="middle">
+    <text x="193" y="106">›</text><text x="369" y="106">›</text><text x="545" y="106">›</text><text x="721" y="106">›</text><text x="897" y="106">›</text>
+  </g>
+
+  <text x="540" y="174" font-size="13" fill="#51616f" text-anchor="middle">↻ repeat for each table or indicator — every finished artifact feeds L3 (PlanDefinition + CQL · Measure + CQL)</text>
+</svg>
