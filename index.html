@@ -18,6 +18,15 @@
   a.ghost{background:#eef3f9;color:var(--blue);border:1px solid #cdd8e6;}
   a.pdf{background:var(--green);color:#fff;}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .linkgroup{margin:0 0 6px;}
+  .linkgroup h3{margin:16px 0 4px;font-size:15px;color:var(--blue);}
+  ul.lk{list-style:none;margin:0;padding:0;}
+  ul.lk li{padding:5px 0;border-bottom:1px solid #eef2f7;font-size:14px;color:#3a4a59;}
+  ul.lk li:last-child{border-bottom:0;}
+  ul.lk a{color:var(--accent);text-decoration:none;font-weight:bold;}
+  ul.lk a:hover{text-decoration:underline;}
+  ul.lk li.sub2{padding-left:20px;border-bottom:0;padding-top:2px;padding-bottom:2px;}
+  ul.lk .d{color:#5a6b7a;font-weight:normal;}
   footer{margin-top:2.4em;font-size:12.5px;color:#5a6b7a;border-top:2px solid var(--blue);padding-top:8px;}
   @media (max-width:640px){.grid{grid-template-columns:1fr;}}
 </style></head>
@@ -56,6 +65,48 @@
     <p>The detailed method, authoring conventions, and fully worked artifacts, with citations.</p>
     <a class="btn primary" href="SOURCE-L2-contextualization-DS-and-indicators.html">Open reference</a>
     <a class="btn ghost" href="SOURCE-L2-contextualization-DS-and-indicators.md">Markdown source</a>
+  </div>
+
+  <h2>Useful links &amp; references</h2>
+  <p class="sub" style="margin-bottom:2px">Official WHO guidance and the tooling the working group will reach for next. All links verified live.</p>
+
+  <div class="linkgroup">
+    <h3>WHO SMART Guidelines — method &amp; program</h3>
+    <ul class="lk">
+      <li><a href="https://www.who.int/teams/digital-health-and-innovation/smart-guidelines" target="_blank" rel="noopener">WHO SMART Guidelines</a> — <span class="d">program overview and the L1–L5 knowledge ladder.</span></li>
+      <li><a href="https://smart.who.int/" target="_blank" rel="noopener">SMART Guidelines portal</a> — <span class="d">index of all published WHO DAKs and L3 implementation guides.</span></li>
+      <li><a href="https://smart.who.int/ig-starter-kit/" target="_blank" rel="noopener">IG Starter Kit</a> — <span class="d">the standard operating procedure for authoring DAKs and IGs (this guidance follows it).</span></li>
+      <li class="sub2">↳ <a href="https://smart.who.int/ig-starter-kit/l2_authoring_overview.html" target="_blank" rel="noopener">L2 authoring overview</a> — <span class="d">the nine DAK components and how they interlink.</span></li>
+      <li class="sub2">↳ <a href="https://smart.who.int/ig-starter-kit/l2_dak_authoring.html" target="_blank" rel="noopener">Authoring a L2 DAK</a> — <span class="d">step-by-step process.</span></li>
+      <li class="sub2">↳ <a href="https://smart.who.int/ig-starter-kit/l2_templates.html" target="_blank" rel="noopener">L2 DAK templates</a> — <span class="d">the Excel templates for each component.</span></li>
+      <li class="sub2">↳ <a href="https://smart.who.int/ig-starter-kit/authoring_conventions.html" target="_blank" rel="noopener">Authoring conventions</a> — <span class="d">naming and data-element ID rules used across artifacts.</span></li>
+      <li class="sub2">↳ <a href="https://smart.who.int/ig-starter-kit/authoring_overview.html" target="_blank" rel="noopener">L3 authoring overview</a> — <span class="d">turning the L2 DAK into a FHIR IG.</span></li>
+      <li><a href="https://smart.who.int/ig-starter-kit/cop.html" target="_blank" rel="noopener">Community of Practice</a> — <span class="d">weekly calls and the <code>who-smart-guidelines</code> stream on chat.fhir.org.</span></li>
+    </ul>
+  </div>
+
+  <div class="linkgroup">
+    <h3>WHO HIV — source guidance &amp; artifacts</h3>
+    <ul class="lk">
+      <li><a href="https://www.who.int/publications/i/item/9789240054424" target="_blank" rel="noopener">HIV Digital Adaptation Kit</a> — <span class="d">the L2 publication and its web annexes (data dictionary, decision logic, indicators).</span></li>
+      <li><a href="https://www.who.int/publications/i/item/9789240055315" target="_blank" rel="noopener">Person-centred HIV strategic information</a> — <span class="d">consolidated guidance behind the indicators and reporting.</span></li>
+      <li><a href="https://smart.who.int/hiv" target="_blank" rel="noopener">HIV SMART Guidelines IG (L3)</a> — <span class="d">the published FHIR implementation guide.</span></li>
+      <li class="sub2">↳ <a href="https://smart.who.int/hiv/decision-logic.html" target="_blank" rel="noopener">Decision-support logic</a> — <span class="d">the WHO decision tables, rendered.</span></li>
+      <li class="sub2">↳ <a href="https://smart.who.int/hiv/indicators.html" target="_blank" rel="noopener">Indicators &amp; performance metrics</a> — <span class="d">the WHO indicator definitions, rendered.</span></li>
+      <li><a href="https://github.com/WorldHealthOrganization/smart-hiv" target="_blank" rel="noopener">smart-hiv (GitHub)</a> — <span class="d">source repository for the HIV IG.</span></li>
+    </ul>
+  </div>
+
+  <div class="linkgroup">
+    <h3>Tooling &amp; specs for L2 → L3 (and L4)</h3>
+    <ul class="lk">
+      <li><a href="https://www.hl7.org/fhir/uv/shorthand/" target="_blank" rel="noopener">FHIR Shorthand (FSH)</a> — <span class="d">the language for authoring FHIR profiles and artifacts.</span></li>
+      <li><a href="https://fshschool.org/" target="_blank" rel="noopener">FSH School</a> — <span class="d">SUSHI compiler and the IG Publisher, with tutorials.</span></li>
+      <li><a href="https://cql.hl7.org/" target="_blank" rel="noopener">Clinical Quality Language (CQL)</a> — <span class="d">the logic language for decision support and measures.</span></li>
+      <li><a href="https://www.hl7.org/fhir/clinicalreasoning-module.html" target="_blank" rel="noopener">FHIR Clinical Reasoning</a> — <span class="d">PlanDefinition, Library and Measure — how L2 logic is encoded at L3.</span></li>
+      <li><a href="https://developers.google.com/open-health-stack" target="_blank" rel="noopener">Open Health Stack</a> — <span class="d">Android FHIR SDK for building L4 point-of-care apps.</span></li>
+      <li><a href="https://github.com/google/android-fhir" target="_blank" rel="noopener">Android FHIR SDK (GitHub)</a> — <span class="d">source repository.</span></li>
+    </ul>
   </div>
 
   <footer>Method grounded in the WHO SMART Guidelines IG Starter Kit (v2.0.0) and the WHO HIV DAK, 2nd edition. Diagrams in <code>_assets/</code>.</footer>
