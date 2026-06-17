@@ -1,5 +1,7 @@
 # SMART HIV — L2 Contextualization Guidance
 
+**▶ View online:** https://carecommons.github.io/smart-hiv-l2-contextualization/
+
 Hands-on guidance for **adapting WHO HIV SMART Guidelines L2 artifacts** — the **decision-support tables** and **indicators** of the Digital Adaptation Kit (DAK) — to a national context, using **Ethiopia** as the worked example.
 
 It is built for national HIV program + digital-health teams and the **L2/L3 working groups** doing the adaptation.

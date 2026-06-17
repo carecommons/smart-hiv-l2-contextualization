@@ -1,0 +1,199 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><title>Source reference — L2 contextualization</title><style>:root{color-scheme:light;--blue:#1F497D;--accent:#4F81BD;}html{background:#fff;}*{box-sizing:border-box;}
+body{font-family:Calibri,"Segoe UI",Arial,sans-serif;background:#fff;color:#23303d;line-height:1.5;max-width:920px;margin:0 auto;padding:28px 22px 80px;}
+h1{color:var(--blue);font-size:30px;border-bottom:3px solid var(--blue);padding-bottom:8px;margin-top:.2em;}
+h2{color:var(--blue);font-size:22px;margin-top:1.7em;border-bottom:1px solid #d7e0ea;padding-bottom:4px;}
+h3{color:var(--blue);font-size:17px;margin-top:1.3em;}p,li{font-size:15px;}
+table{border-collapse:collapse;width:100%;margin:1.1em 0;font-size:13.5px;background:#fff;}
+th,td{border:1px solid #cdd8e6;padding:6px 9px;text-align:left;vertical-align:top;}th{background:var(--blue);color:#fff;}
+tbody tr:nth-child(even) td{background:#f4f7fb;}code{background:#eef3f9;color:var(--blue);border-radius:3px;padding:0 4px;font-size:.92em;}
+blockquote{border-left:4px solid var(--accent);background:#f4f7fb;margin:1.1em 0;padding:9px 15px;color:#3a4a59;}blockquote p{margin:.3em 0;}
+strong{color:#0b6e4f;}a{color:var(--blue);}hr{border:none;border-top:1px solid #e3e9f0;margin:1.8em 0;}
+@media print{body{max-width:none;}}</style></head><body><h1>Source Document — Adapting WHO HIV DAK L2 Artifacts to Ethiopia: Authoring a Contextualized Decision-Support Table and Indicator</h1>
+<p><strong>For:</strong> workshop session — adopting and adapting additional L2 artifacts to the Ethiopian context, with a hands-on focus on authoring contextualized decision-support and indicator <code>.xlsx</code> artifacts for the HIV DAK.
+<strong>Audience:</strong> national HIV program + digital health teams; the L2/L3 working groups.
+<strong>Scope (locked):</strong> one decision-support table and one indicator, authored end-to-end as worked examples.
+<strong>How to use this:</strong> Parts A–C are the method (what an L2 DAK is, the adopt-and-adapt process, the authoring conventions). Parts D–E are the two worked artifacts. Part F is the validation checklist and pitfalls. Part G is the open items to settle with the room. Appendix = evidence base and confidence.</p>
+<blockquote>
+<p><strong>Evidence note.</strong> The WHO methodology and authoring conventions below are verified against WHO primary sources (SMART Guidelines IG Starter Kit v2.0.0; WHO HIV DAK 2nd ed.; HIV IG v1.0.0). The <strong>Ethiopia specifics</strong> are now read directly from the <strong>localized data dictionary</strong>, diffed row-by-row against the WHO default — see the companion <strong><code>REPORT-Ethiopia-DAK-adaptation.md</code></strong> for the full delta (298 added, 204 removed, 1,124 modified elements). What remains <code>[confirm: ETH]</code> is narrower: cross-checking specific changes against current national guidelines.</p>
+</blockquote>
+<hr />
+<h2>Part A — The premise: the adaptation already exists; review, wire, and validate it</h2>
+<p>WHO publishes the HIV guidance as a <strong>Digital Adaptation Kit (DAK)</strong> — software-neutral documentation that distils clinical, public-health and data-use guidance into a form digital systems can implement. WHO's DAK outputs are <strong>intentionally generic and meant to be contextualized</strong>; the recommended workflow is <em>adopt the WHO DAK, then adapt its content to local needs</em> rather than authoring from scratch.</p>
+<p><strong>Ethiopia has already done much of that adaptation.</strong> The localized data dictionary differs from the WHO default by <strong>298 added, 204 removed, and 1,124 modified data elements</strong> (full delta in <code>REPORT-Ethiopia-DAK-adaptation.md</code>): a new <strong>Surveillance</strong> module, <strong>national PrEP/PEP/ART regimens</strong> (incl. injectable Lenacapavir), a <strong>maternal testing algorithm</strong>, <strong>"Invalid" results</strong> and <strong>retest-before-ART</strong> steps, and <strong>updated value sets</strong> across registration, regimens, and disaggregators.</p>
+<ul>
+<li>So the session's job is <strong>not</strong> to author the ~20% from a blank generic DAK — it is to <strong>review</strong> what was changed, <strong>wire</strong> the many added elements that aren't yet connected to a decision table or indicator, <strong>re-derive</strong> the affected logic, and <strong>validate</strong> it.</li>
+<li>Where Ethiopia changed a value set, the artifacts simply <strong>adopt the localized values</strong> — treated the same as any other modification.</li>
+<li>The two worked examples below are reframed accordingly: each shows <strong>completing and wiring the existing Ethiopia changes</strong>, in the WHO formats, so the output drops into the national DAK and then the L3 IG.</li>
+</ul>
+<h2>Part B — What an L2 DAK contains, and where our two artifacts live</h2>
+<p>The L2 DAK has <strong>nine components</strong>, delivered as a narrative PDF plus four Excel web annexes:</p>
+<table>
+<thead>
+<tr>
+<th>Web annex (.xlsx)</th>
+<th>Component</th>
+<th>This is where…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Annex A</strong></td>
+<td>Core data elements (data dictionary)</td>
+<td>where every input/output value lives</td>
+</tr>
+<tr>
+<td><strong>Annex B</strong></td>
+<td>Decision-support logic</td>
+<td><strong>our decision table is authored</strong></td>
+</tr>
+<tr>
+<td><strong>Annex C</strong></td>
+<td>Indicators &amp; performance metrics</td>
+<td><strong>our indicator is authored</strong></td>
+</tr>
+<tr>
+<td><strong>Annex D</strong></td>
+<td>Functional / non-functional requirements</td>
+<td>system requirements</td>
+</tr>
+</tbody>
+</table>
+<p>(Other components: health interventions/recommendations, generic personas, user scenarios, business processes/workflows, scheduling logic. Note: some older WHO material lists <em>eight</em> components, folding scheduling into decision support — participants may have seen that framing.)</p>
+<p><strong>The binding rule that connects the three annexes:</strong> <em>collect once, use many times.</em> Every value used by a decision table or an indicator <strong>must exist as a data element in Annex A</strong>. In the attached dictionary this is explicit — each data element row carries <code>Linkages to Decision Support Tables</code> and <code>Linkages to Aggregate Indicators</code>. That linkage is the backbone we author against.</p>
+<p><strong>Where it goes next (L2 → L3):</strong> L3 authoring takes the L2 as input and produces FHIR artifacts that correspond to it — <strong>decision tables → <code>PlanDefinition</code> + <code>Library</code> + CQL</strong>; <strong>indicators → FHIR <code>Measure</code> + CQL</strong>. So a clean L2 artifact is the direct, traceable input to fixing/building the L3 IG. WHO also recommends <strong>tracking versions of L2 content when adapting locally</strong>, to record changes and assess their impact (provenance).</p>
+<h2>Part C — The authoring conventions (use these exactly)</h2>
+<h3>C1. Decision-support table (Annex B)</h3>
+<ul>
+<li>Tables follow the <strong>DMN (Decision Model and Notation)</strong> standard, authored in a spreadsheet.</li>
+<li>Column structure used by the WHO HIV IG: <strong><code>Rule ID</code> · <code>Condition Inputs</code> (one variable-named column per input) · <code>Output Type</code> · <code>Action</code> · <code>Guidance</code> · <code>Annotations</code> · <code>Reference(s)</code></strong>.</li>
+<li>Declare a <strong>Hit Policy</strong> (e.g., <em>Rule order</em> / <em>First</em>) so the engine knows how rules are evaluated.</li>
+<li>Use explicit operators in cells: <code>=</code>, <code>IN</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>is NULL</code>, <code>=True/=False</code>.</li>
+<li><strong>Guardrail: avoid tables with 10+ inputs</strong> — split into separate tables. (Directly relevant to refactoring complex/buggy tables.)</li>
+<li>Every input/output references an <strong>Annex A data element</strong> (coded value sets, not free text).</li>
+</ul>
+<h3>C2. Indicator (Annex C)</h3>
+<p>Author each indicator with these L2 template fields: <strong>short name · indicator definition · category · what it measures · rationale · numerator definition · numerator calculation · denominator definition · denominator calculation · disaggregation description · reference</strong> (plus DAK ID and the WHO Strategic Information reference number).
+- Numerator and denominator are built <strong>only from data elements already in Annex A</strong>.
+- Prioritize indicators <strong>derivable from routine primary-care data</strong> (collect once, use many).
+- <strong>Computability test before you start (critical):</strong> some HIV indicators are <em>not</em> computable from DAK routine data and must not be authored as clinical logic — e.g. condoms distributed (IND.1), needles/syringes (IND.10), condom use (IND.17), key populations who know status (IND.26), KP living with HIV on ART (IND.36) are labeled in the IG as <em>"Not included in DAK; survey-based"</em> or <em>"…from multiple data sources."</em> The authorable pattern is a <strong>count over coded data elements</strong> — model example: <strong>HIV.IND.2 / PRV.2 (PrEP recipients)</strong> = <code>COUNT of clients with "PrEP for HIV prevention" prescribed in the reporting period</code>, denominator = 1.</p>
+<blockquote>
+<p><strong>ID crosswalk caveat.</strong> The DAK data dictionary uses family IDs (<code>HTS.*</code>, <code>ART.*</code>, <code>VER.*</code>…); the L3 IG renumbers indicators as <code>HIV.IND.N</code>. The exact published <code>HIV.IND</code> inventory/numbering (including whether the remediation plan's IND.23, 97–100 exist) was <strong>not verified</strong> — check the live indicators page before relying on a specific number.</p>
+</blockquote>
+<hr />
+<h2>Part D — Worked artifact #1 (decision support): <code>HIV.B7.DT</code> — National HIV testing algorithm</h2>
+<p><strong>Why this one.</strong> It is the single most country-specific artifact in the DAK, foundational (every diagnosis depends on it), and <strong>Ethiopia has already changed it</strong> — <code>HIV.B7.DT</code> is among the most-adapted tables in the dictionary (<strong>+21 elements, −1, 31 modified</strong>). Ethiopia added an <strong>"Invalid" assay-result</strong> value, <strong>verification-on-discordance</strong> and <strong>retest-before-ART</strong> steps (the latter wired to <code>HIV.D12.DT</code>), and a <strong>maternal-serology reuse</strong> in PMTCT (<code>HIV.E.ET.DE200–220</code>, wired to <code>B7</code>/<code>E4</code>). Several of those additions still have <strong>blank linkage cells</strong> — added as data but not yet connected to the table. So this example is <strong>wiring and reconciling the existing Ethiopia changes</strong>, not authoring from scratch — which also fixes the real L3 gap (the smart-hiv B7 logic is hard-coded non-functional: <code>define "Non-reactive result": false</code>).</p>
+<p><strong>Clinical-safety logic to PRESERVE (WHO baseline — do not lose in adaptation):</strong>
+- Everyone is tested on <strong>Assay 1 (A1)</strong>.
+- <strong>A1 non-reactive → report HIV-negative.</strong>
+- Reactive results proceed <strong>A1 → A2 → A3</strong> (serial).
+- <strong>Discrepant handling:</strong> e.g., <code>A1+ ; A2−</code> → <strong>repeat Assay 1</strong>.
+- <strong>Inconclusive outcomes → schedule retest at visit date + 14 days.</strong>
+- (Infants &lt;18 months are diagnosed by <strong>virologic/EID</strong> testing, not this serology table — route to the EID/indeterminate-results logic, HIV.E12.DT.)</p>
+<p><strong>Decision table skeleton (Annex B format).</strong> Hit policy: <em>Rule order</em>. Inputs are the assay-result data elements from Annex A (<code>HIV.B.DE94/97/100</code>); the output is the <strong>HIV test result</strong> element (<code>HIV.B.DE107</code>, coded HIV-positive / HIV-negative / HIV-inconclusive).</p>
+<table>
+<thead>
+<tr>
+<th>Rule ID</th>
+<th>A1 result</th>
+<th>A2 result</th>
+<th>A3 result</th>
+<th>Output: HIV test result</th>
+<th>Action / Guidance</th>
+<th>Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B7-R1</td>
+<td><code>= Non-reactive</code></td>
+<td>—</td>
+<td>—</td>
+<td>HIV-negative</td>
+<td>Report negative; counsel on window period / re-test if recent exposure</td>
+<td>WHO HTS 2019; <code>[confirm: ETH]</code></td>
+</tr>
+<tr>
+<td>B7-R2</td>
+<td><code>= Reactive</code></td>
+<td><code>= Reactive</code></td>
+<td><code>= Reactive</code></td>
+<td>HIV-positive</td>
+<td><strong>Verify</strong> positive status before ART per policy; link to care/ART</td>
+<td>WHO HTS 2019; <code>[confirm: ETH]</code></td>
+</tr>
+<tr>
+<td>B7-R3</td>
+<td><code>= Reactive</code></td>
+<td><code>= Reactive</code></td>
+<td><code>= Non-reactive</code></td>
+<td>HIV-inconclusive</td>
+<td>Retest at <strong>visit date + 14 days</strong></td>
+<td>WHO HTS 2019; <code>[confirm: ETH interval]</code></td>
+</tr>
+<tr>
+<td>B7-R4</td>
+<td><code>= Reactive</code></td>
+<td><code>= Non-reactive</code></td>
+<td>—</td>
+<td>(discrepant) repeat A1</td>
+<td>Repeat Assay 1; if still discrepant → inconclusive → retest +14d</td>
+<td>WHO HTS 2019</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ethiopia adaptation slots — settle with the room <code>[confirm: ETH]</code>:</strong>
+1. <strong>Which assays</strong> are A1 / A2 / A3 (national product list), and is the strategy <strong>serial</strong> (as above) or any <strong>parallel</strong> step?
+2. <strong>Retest interval</strong> — confirm Ethiopia uses 14 days for inconclusive.
+3. <strong>Verification testing</strong> before ART initiation — national policy (WHO recommends re-testing to verify a positive status before ART).
+4. <strong>Entry points / who tests</strong> (PITC, VCT, index, ANC, community) — affects the modality value set used by the indicator.
+5. Age routing: confirm the &lt;18-month EID handoff and self-test confirmatory path.</p>
+<p><strong>L3 target:</strong> <code>PlanDefinition</code> (HIVB7DT) + CQL <code>Library</code> — replacing the current non-functional logic; preserve the rules above so the safety behavior is not re-broken.</p>
+<hr />
+<h2>Part E — Worked artifact #2 (indicator): HIV testing positivity (yield)</h2>
+<p><strong>Why this one.</strong> Simple, high-value, computable from routine data, and it runs off the <strong>same element</strong> the B7 table produces (the HIV test result) — so one piece of contextualized logic drives both the point-of-care result and the report. Two Ethiopia-specific wrinkles make it a real worked example, not a copy:
+- The HIV test result now <strong>also lives in the new Surveillance module</strong> (<code>HIV.Surveil.DE2</code>, wired to <code>HTS.2/3/7/8</code>). The example must decide the <strong>source of truth</strong> the indicator reads (HTS visit vs Surveillance).
+- Several referenced elements <strong>moved or were removed</strong> (e.g. <code>Date HIV test results returned</code>), and disaggregation uses the <strong>localized value sets</strong> — re-point to the localized/Surveillance elements and adopt the national values.</p>
+<p><strong>Definition (Annex C fields):</strong>
+- <strong>Short name:</strong> HIV testing positivity (yield).
+- <strong>What it measures / rationale:</strong> the share of HIV tests that return positive — testing efficiency and case-finding yield; guides where to target testing.
+- <strong>Numerator definition:</strong> number of individuals with <strong>HIV test result = HIV-positive</strong> (<code>HIV.B.DE107</code>, the B7 outcome) during the reporting period.
+  <strong>Numerator calculation:</strong> <code>COUNT of clients where [HIV test result] = HIV-positive AND [HIV test date] in reporting period</code>.
+- <strong>Denominator definition:</strong> number of individuals <strong>tested for HIV</strong> during the period.
+  <strong>Denominator calculation:</strong> <code>COUNT of clients where [HIV test performed/date] in reporting period</code>.
+- <strong>Disaggregation:</strong> <strong>age band — include &lt;1 and 1–14 explicitly</strong> (the pediatric case-finding gap), plus 15–19/20–24/25+; <strong>sex</strong>; <strong>testing modality/entry point</strong>; location. (KP disaggregation is sensitive and partly survey-bound — handle separately; do not fold KP-status indicators into this routine count.)</p>
+<p><strong>Simplest authorable variant</strong> (mirrors the IND.2 count pattern): <em>number of individuals newly diagnosed HIV-positive in the period</em>, denominator = 1 — useful if the team wants to start from a pure count before adding the denominator.</p>
+<p><strong>Maps to what Ethiopia reports <code>[confirm: ETH]</code>:</strong> PEPFAR MER <strong><code>HTS_TST</code> / <code>HTS_TST_POS</code></strong>; DHIS2/HMIS HTS testing+positivity. Confirm the exact national definitions/disaggregations so the contextualized indicator reconciles with existing numbers (a strong validation step — the new indicator should reproduce known totals).</p>
+<p><strong>L3 target:</strong> FHIR <code>Measure</code> + CQL (shared <code>IndicatorLogic</code> library).</p>
+<hr />
+<h2>Part F — Contextualization pitfalls &amp; validation checklist</h2>
+<p>Run every authored artifact through this before calling it done:</p>
+<ul>
+<li>[ ] <strong>Every input/output is an Annex A data element</strong> (coded value set, not free text). Add missing elements to the dictionary first.</li>
+<li>[ ] <strong>Computability:</strong> the indicator's numerator and denominator come from routine DAK data — not a survey or external aggregate (the IND.1/10/17/26/36 trap).</li>
+<li>[ ] <strong>≤10 inputs</strong> per decision table; split if larger.</li>
+<li>[ ] <strong>Hit policy and operators</strong> declared explicitly.</li>
+<li>[ ] <strong>Preserve safety logic</strong> (B7: A1− → negative; serial A1→A2→A3; discrepant repeat-A1; 14-day retest).</li>
+<li>[ ] <strong>Avoid the documented smart-hiv bugs</strong> when adapting related logic: key-population stratifier must test the data element's <strong>value, not its code</strong> (<code>O.value</code>, not <code>O.code</code>); PEP vs PrEP must use the <strong>correct dose/threshold</strong> (don't apply a methadone threshold to buprenorphine, etc.); watch <strong>operator precedence</strong> in numerators; keep Measure↔Library <strong>population names</strong> consistent (<code>Numerator</code>/<code>Denominator</code>).</li>
+<li>[ ] <strong>Disaggregation</strong> matches national reporting (so the indicator reconciles with HMIS/MER).</li>
+<li>[ ] <strong>Provenance:</strong> record what diverged from the WHO DAK and why (version note) — feeds the L2→L3 change log.</li>
+<li>[ ] <strong>Reconcile a known total</strong> (e.g., last quarter's HTS_TST_POS) against the authored indicator as a validity check.</li>
+</ul>
+<h2>Part G — Open items to resolve with the room</h2>
+<p>Now grounded in the actual adaptation (see <code>REPORT-Ethiopia-DAK-adaptation.md</code> and the work plan in <code>IMPACT-ANALYSIS-DD-to-DT-indicators.md</code>):
+1. <strong>Wiring gaps</strong> — 233 added <code>.ET</code> elements have blank linkage cells. Connect each to its decision table / indicator (value-options inherit the parent's linkage; the impact analysis lists the targets).
+2. <strong>Update Annexes B and C</strong> — they are still the WHO defaults; apply the Annex-A delta to the decision tables and indicators (this is the workshop's core output).
+3. <strong>Re-derive the national-regimen tables</strong> — <code>HIV.C23.DT</code> (PrEP/PEP) and <code>HIV.D21.x</code> (ART / drug interactions) to the national formulary (incl. injectable Lenacapavir in <code>PRV.*</code>).
+4. <strong>Govern the new Surveillance module</strong> — who owns it; its relationship to routine HMIS/MER; whether it is the indicator source of truth.
+5. <strong>Terminology bindings</strong> for the coded elements (ICD-11/LOINC/SNOMED/national) and confirm the live <code>HIV.IND</code> numbering.</p>
+<hr />
+<h2>Appendix — Evidence base &amp; confidence</h2>
+<p><strong>Verified (WHO primary sources):</strong> the nine-component / four-annex DAK structure; adopt-and-adapt premise and replicable process; DMN decision-table conventions (columns, hit policy, ≤10-input guardrail); indicator template fields and "collect once, use many"; the non-computable survey-based indicators (IND.1/10/17/26/36); the count-based authorable pattern (IND.2/PRV.2); the named decision tables (B7, E4, E12, D17, D21.1); B7's A1/A2/A3 + discrepant + 14-day-retest logic; the L2→L3 mapping (PlanDefinition/Library/CQL; Measure/CQL); version/provenance recommendation.</p>
+<p><strong>To confirm against Ethiopian sources (<code>[confirm: ETH]</code>):</strong> national testing assays/intervals; ART/PMTCT/EID/PrEP specifics; the 52% pediatric-diagnosed figure; Ethiopia's actual MER/HMIS reporting set and definitions; terminology bindings; the live <code>HIV.IND</code> inventory.</p>
+<p><strong>Key references</strong>
+- WHO SMART Guidelines IG Starter Kit v2.0.0 — L2 authoring overview &amp; DAK authoring: https://smart.who.int/ig-starter-kit/l2_authoring_overview.html · https://smart.who.int/ig-starter-kit/l2_dak_authoring.html · authoring overview (L2→L3): https://smart.who.int/ig-starter-kit/authoring_overview.html
+- WHO HIV DAK, 2nd ed. (Dec 2023): https://www.who.int/publications/i/item/9789240085138
+- WHO HIV IG v1.0.0 — decision logic: https://smart.who.int/hiv/decision-logic.html · indicators: https://smart.who.int/hiv/indicators.html · example indicator logic: https://smart.who.int/hiv/Library-HIVIND2Logic.html
+- SMART Guidelines Pathfinder study (incl. Ethiopia), JMIR Med Inform 2025: https://medinform.jmir.org/2025/1/e58858
+- WHO Consolidated Guidelines on HIV Testing Services (2019) — testing-strategy basis for B7.
+- Ethiopia national HIV / PMTCT guidance (validate specifics): Ethiopia HIV guideline (policyvault.africa ETH32); National Guideline for PMTCT of HIV; Ethiopia PEPFAR Strategic Direction Summary 2023.
+- Companion: <code>smart-hiv</code> IG <code>REMEDIATION-PLAN.md</code> (gap/safety items referenced in Parts D–F).</p></body></html>
